@@ -28,7 +28,7 @@ uploaded_file = st.file_uploader("Upload test dataset (CSV format)", type=["csv"
 
 if uploaded_file is not None:
         try:
-            df_test = pd.read_csv(uploaded_file, dtype=str)
+            df_test = pd.read_csv(uploaded_file)
             for col in df_test.columns:
                 try:
                     df_test[col] = pd.to_numeric(df_test[col], errors='ignore')
@@ -68,21 +68,21 @@ else:
 
 # Prediction buttons
 if st.button("Predict Passed Visual Inspection"):
-    pred_passed_visual = model.predict(df_test)[:, 0]  # First column
+    pred_passed_visual = model.predict(df_test)[0]  # First column
     #pred_passed_visual = pred_passed_visual.round().astype(int)  # Convert to 0/1
     #pred_passed_visual = [passed_visual_labels.get(val, "Unknown") for val in pred_passed_visual]
     st.write("Passed Visual Inspection Predictions:")
     st.write("Inspection Passed" if pred_passed_visual > 0.5 else "Inspection Failed")
 
 if st.button("Predict Machining Finalized"):
-    pred_machining_finalized = model.predict(df_test)[:, 1]  # Second column
+    pred_machining_finalized = model.predict(df_test)[1]  # Second column
     pred_machining_finalized = pred_machining_finalized.round().astype(int)
     pred_machining_finalized = [machining_finalized_labels.get(val, "Unknown") for val in pred_machining_finalized]
     st.write("Machining Finalized Predictions:")
     st.write(pred_machining_finalized)
 
 if st.button("Predict Tool Condition"):
-    pred_tool_condition = model.predict(df_test)[:, 2]  # Third column
+    pred_tool_condition = model.predict(df_test)[2]  # Third column
     pred_tool_condition = pred_tool_condition.round().astype(int)
     pred_tool_condition = [tool_condition_labels.get(val, "Unknown") for val in pred_tool_condition]
     st.write("Tool Condition Predictions:")
@@ -90,7 +90,7 @@ if st.button("Predict Tool Condition"):
 
 # Button to predict all at once
 if st.button("Predict All"):
-    predictions = model.predict(df_test).astype(int)
+    predictions = model.predict(df_test)
     
     results = pd.DataFrame({
         "Passed_Visual_Inspection": [passed_visual_labels.get(val, "Unknown") for val in predictions[:, 0]],
