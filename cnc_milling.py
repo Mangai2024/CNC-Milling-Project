@@ -13,7 +13,7 @@ def load_model(model_path):
     with open(model_path, 'rb') as file:
         return pickle.load(file)
 
-model = load_model("model (1).pkl)
+model = load_model("model (1).pkl")
 
 # Define label mappings
 passed_visual_labels = {0: "Failed", 1: "Passed"}
