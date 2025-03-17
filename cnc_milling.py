@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
 import pickle
-
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.layers import LeakyReLU
 # Define file paths
 model_path = "model.pkl"
 
@@ -11,7 +13,7 @@ def load_model(model_path):
     with open(model_path, 'rb') as file:
         return pickle.load(file)
 
-model = load_model(model_path)
+model = load_model(r"model (1).pkl)
 
 # Define label mappings
 passed_visual_labels = {0: "Failed", 1: "Passed"}
