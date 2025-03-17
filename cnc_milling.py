@@ -90,7 +90,7 @@ if st.button("Predict Tool Condition"):
 
 # Button to predict all at once
 if st.button("Predict All"):
-    predictions = model.predict(df_test).round().astype(int)
+    predictions = model.predict(df_test).astype(int)
     
     results = pd.DataFrame({
         "Passed_Visual_Inspection": [passed_visual_labels.get(val, "Unknown") for val in predictions[:, 0]],
